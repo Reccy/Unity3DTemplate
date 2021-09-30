@@ -109,7 +109,7 @@ def github_login():
         return True
 
 def create_github_repo(repoName):
-    subprocess.run(["gh repo create" + repoName + "--private -y"])
+    subprocess.run("gh repo create" + repoName + "--private -y")
 
 def update_readme(projectName):
     log("Generating README.MD")
