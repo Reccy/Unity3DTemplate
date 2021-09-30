@@ -28,7 +28,7 @@ def prompt(question):
             log("Please respond with 'Yes' or 'No'")
 
 def prompt_str(question):
-    response = input("[Unity Init] " + question + "\n > ").lower().strip()
+    response = input("[Unity Init] " + question + "\n > ").strip()
     return response
 
 def clone_submodules():
