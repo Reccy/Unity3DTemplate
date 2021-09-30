@@ -47,6 +47,14 @@ def set_project_name(projectName):
     with open(settings_file, "w") as f:
         f.write(texts)
 
+def set_repo_url(newUrl):
+    log("Setting new Repository Remote URL to " + newUrl)
+    subprocess.run("git remote set-url origin " + newUrl)
+
+def clear_repo_url():
+    log("Clearing Repository Remote")
+    subprocess.run("git remote remove origin")
+
 def squash_commits():
     log("Squashing commits")
     subprocess.run("git checkout --orphan new-master master")
@@ -66,10 +74,22 @@ def delete_prompt():
         log("Skipping deletion")
 
 def main():
-    log("Initializing Unity Project")
     projectName = prompt_str("Please enter your project name")
+    if prompt("Do you have an existing empty repo you would like to push this project to?"):
+        repoName = prompt_str("Please enter your repo URL")
+    else
+        repoName = None
+
+    log("Initializing Unity Project")
+
     clone_submodules()
     set_project_name(projectName)
+
+    if repoName:
+        set_repo_url(repoName)
+    else:
+        clear_repo_url()
+
     #squash_commits()
     #delete_prompt()
 
