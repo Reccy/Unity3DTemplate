@@ -77,7 +77,7 @@ def main():
     projectName = prompt_str("Please enter your project name")
     if prompt("Do you have an existing empty repo you would like to push this project to?"):
         repoName = prompt_str("Please enter your repo URL")
-    else
+    else:
         repoName = None
 
     log("Initializing Unity Project")
