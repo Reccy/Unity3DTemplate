@@ -67,6 +67,10 @@ def squash_commits():
     subprocess.run("git branch -M new-master master")
     log("Commits squashed")
 
+def push_changes(newRepo):
+    log("Pushing changes to " + newRepo)
+    subprocess.run("git push -u origin master")
+
 def delete_file():
     log("Deleting " + str(current_file_path()))
     os.remove(current_file_path())
@@ -96,6 +100,9 @@ def main():
 
     commit_changes()
     squash_commits()
+
+    if repoName:
+        push_changes(repoName)
 
     log("Done! Good luck with " + projectName + "! :)")
 
