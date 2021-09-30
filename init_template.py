@@ -109,8 +109,7 @@ def github_login():
         return True
 
 def create_github_repo(repoName):
-    proc = subprocess.Popen(["gh", "repo", "create", repoName, "--private", "-y"])
-    pass
+    subprocess.run(["gh repo create" + repoName + "--private -y"])
 
 def update_readme(projectName):
     log("Generating README.MD")
