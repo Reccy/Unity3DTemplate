@@ -11,6 +11,8 @@ This is a simple template for getting started with a Unity project quickly. The 
 4. In the project root directory, run the following commands:
  1. `git submodule init`
  2. `git submodule update`
+5. Change the project title in `Build Settings -> Player Settings -> Product Name`
+6. Change the git remote origin with `git remote set-url origin https://somenewgitrepo.git`
 
 ## Directory Layout
 `/Lib` contains common submodules that are pulled from GitHub. For example, script extensions.
