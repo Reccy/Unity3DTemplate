@@ -2,6 +2,7 @@
 import subprocess
 import requests
 import pathlib
+import io
 import os
 
 ORIGINAL_PROJ_NAME = "Reccy 3D Template"
@@ -81,10 +82,31 @@ def clear_repo_url():
     log("Clearing Repository Remote")
     subprocess.run("git remote remove origin")
 
-def attempt_github_login(username, password):
-    curl_str = "curl -u " + username + ":" + password + " https://api.github.com/" + username
-    log(curl_str)
-    subprocess.run(curl_str)
+def github_login():
+    proc = subprocess.Popen(["gh", "auth", "status"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+    lines = []
+    for line in io.TextIOWrapper(proc.stdout, encoding="utf-8"):
+        lines.append(line.strip())
+
+    if lines[0] == "You are not logged into any GitHub hosts. Run gh auth login to authenticate.":
+        log("It appears you're not currently logged into GitHub. Please login now.")
+        subprocess.run("gh auth login")
+        proc2 = subprocess.Popen(["gh", "auth", "status"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        lines2 = []
+        for line in io.TextIOWrapper(proc2.stdout, encoding="utf-8"):
+            lines2.append(line.strip())
+
+        if lines2[0] != "You are not logged into any GitHub hosts. Run gh auth login to authenticate.":
+            return True
+        else:
+            return False
+    else:
+        proc2 = subprocess.Popen(["gh", "auth", "status"], stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.STDOUT)
+        lines2 = []
+        for line in io.TextIOWrapper(proc2.stdout, encoding="utf-8"):
+            lines2.append(line.strip())
+        log(lines2[1])
+        return True
 
 def set_github_repo():
     pass
@@ -139,13 +161,10 @@ def main():
     if ans == 2:
         repoName = prompt_str("Please enter your repo URL")
     elif ans == 3:
+        if not github_login():
+            log("Fatal error: Cannot login to GitHub. Please ensure you can login and run this script again.")
+            exit(1)
         repoName = prompt_str("Please enter your new repo name")
-        githubUsername = prompt_str("Please enter your GitHub username")
-        githubPassword = prompt_str("Please enter your GitHub password")
-        attempt_github_login(githubUsername, githubPassword)
-
-    return
-
 
     log("Initializing Unity Project")
 
