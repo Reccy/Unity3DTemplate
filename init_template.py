@@ -111,7 +111,7 @@ def main():
         clear_repo_url()
 
     delete_file()
-    update_readme()
+    update_readme(projectName)
     commit_changes()
     squash_commits()
 
