@@ -100,8 +100,6 @@ def main():
     else:
         repoName = None
 
-    doDelete = prompt("Delete init script when finished?")
-
     log("Initializing Unity Project")
 
     clone_submodules()
@@ -112,9 +110,7 @@ def main():
     else:
         clear_repo_url()
 
-    if doDelete:
-        delete_file()
-
+    delete_file()
     update_readme()
     commit_changes()
     squash_commits()
