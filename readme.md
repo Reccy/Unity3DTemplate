@@ -14,9 +14,10 @@ This is a simple template for getting started with a Unity project quickly. The 
 4. Install paid assets through package manager:
     1. Rewired (https://assetstore.unity.com/packages/tools/utilities/rewired-21676
     2. Shapes (https://assetstore.unity.com/packages/tools/particles-effects/shapes-173167)
-5. In the project root directory, run the following command: `./init_template.sh`
-6. ???
-7. Make the game!
+5. Save the project and close Unity __**IMPORTANT!!!**__
+6. In the project root directory, run the following command: `./init_template.sh`
+7. ???
+8. Make the game!
 
 ## Directory Layout
 `/Lib` contains common submodules that are pulled from GitHub. For example, script extensions.
