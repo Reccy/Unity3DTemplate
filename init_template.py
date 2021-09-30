@@ -108,7 +108,8 @@ def github_login():
         log(lines2[1])
         return True
 
-def set_github_repo():
+def create_github_repo(repoName):
+    proc = subprocess.Popen(["gh", "repo", "create", repoName, "--private", "-y"])
     pass
 
 def update_readme(projectName):
@@ -176,7 +177,8 @@ def main():
     elif ans == 2:
         set_repo_url(repoName)
     elif ans == 3:
-        set_github_repo(repoName)
+        clear_repo_url()
+        create_github_repo(repoName)
 
     delete_file()
     update_readme(projectName)
