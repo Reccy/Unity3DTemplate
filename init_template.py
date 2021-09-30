@@ -55,6 +55,11 @@ def clear_repo_url():
     log("Clearing Repository Remote")
     subprocess.run("git remote remove origin")
 
+def commit_changes():
+    log("Committing changes")
+    subprocess.run("git add --all")
+    subprocess.run("git commit -m \"Finish setup\"")
+
 def squash_commits():
     log("Squashing commits")
     subprocess.run("git checkout --orphan new-master master")
@@ -65,20 +70,16 @@ def squash_commits():
 def delete_file():
     log("Deleting " + str(current_file_path()))
     os.remove(current_file_path())
-    log("Done")
-
-def delete_prompt():
-    if prompt("Delete this init script?"):
-        delete_file()
-    else:
-        log("Skipping deletion")
 
 def main():
     projectName = prompt_str("Please enter your project name")
+
     if prompt("Do you have an existing empty repo you would like to push this project to?"):
         repoName = prompt_str("Please enter your repo URL")
     else:
         repoName = None
+
+    doDelete = prompt("Delete init script when finished?")
 
     log("Initializing Unity Project")
 
@@ -90,7 +91,12 @@ def main():
     else:
         clear_repo_url()
 
-    #squash_commits()
-    #delete_prompt()
+    if doDelete:
+        delete_file()
+
+    commit_changes()
+    squash_commits()
+
+    log("Done! Good luck with " + projectName + "! :)")
 
 main()
