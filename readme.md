@@ -6,6 +6,7 @@ This is a simple template for getting started with a Unity project quickly. The 
 - Python 3
 - pyyaml package
 - Bash (git bash or cygwin should work for Windows)
+- GitHub CLI (https://cli.github.com/)
 
 ## Template Initialization
 1. Clone the repo to an empty directory
