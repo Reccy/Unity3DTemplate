@@ -15,7 +15,7 @@ This is a simple template for getting started with a Unity project quickly. The 
     1. Rewired (https://assetstore.unity.com/packages/tools/utilities/rewired-21676
     2. Shapes (https://assetstore.unity.com/packages/tools/particles-effects/shapes-173167)
 5. Save the project and close Unity __**IMPORTANT!!!**__
-6. In the project root directory, run the following command: `./init_template.sh`
+6. In the project root directory, run the following command: `./init_template.py`
 7. ???
 8. Make the game!
 
