@@ -55,6 +55,23 @@ def clear_repo_url():
     log("Clearing Repository Remote")
     subprocess.run("git remote remove origin")
 
+def update_readme(projectName):
+    log("Generating README.MD")
+
+    template_readme_file = os.path.join(current_directory(), "template_readme.md")
+    readme_file = os.path.join(current_directory(), "readme.md")
+
+    with open(template_readme_file, "r+") as f:
+        texts = f.read()
+        texts = texts.replace("[PROJECT_TITLE]", projectName)
+
+    with open(readme_file, "w") as f:
+        f.write(texts)
+
+    log("Deleting " + str(template_readme_file))
+
+    os.remove(template_readme_file)
+
 def commit_changes():
     log("Committing changes")
     subprocess.run("git add --all")
@@ -98,6 +115,7 @@ def main():
     if doDelete:
         delete_file()
 
+    update_readme()
     commit_changes()
     squash_commits()
 
