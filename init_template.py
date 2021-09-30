@@ -3,7 +3,12 @@ import subprocess
 import pathlib
 import os
 
-def cwd():
+ORIGINAL_PROJ_NAME = "Reccy 3D Template"
+
+def current_directory():
+    return pathlib.Path(__file__).parent.resolve()
+
+def current_file_path():
     return pathlib.Path(__file__).resolve()
 
 def log(str):
@@ -32,6 +37,16 @@ def clone_submodules():
     log("Updating submodules")
     subprocess.run("git submodule update")
 
+def set_project_name(projectName):
+    settings_file = os.path.join(current_directory(), "ProjectSettings", "ProjectSettings.asset")
+
+    with open(settings_file, "r+") as f:
+        texts = f.read()
+        texts = texts.replace(ORIGINAL_PROJ_NAME, projectName)
+
+    with open(settings_file, "w") as f:
+        f.write(texts)
+
 def squash_commits():
     log("Squashing commits")
     subprocess.run("git checkout --orphan new-master master")
@@ -40,8 +55,8 @@ def squash_commits():
     log("Commits squashed")
 
 def delete_file():
-    log("Deleting " + str(cwd()))
-    os.remove(cwd())
+    log("Deleting " + str(current_file_path()))
+    os.remove(current_file_path())
     log("Done")
 
 def delete_prompt():
@@ -52,8 +67,10 @@ def delete_prompt():
 
 def main():
     log("Initializing Unity Project")
+    projectName = prompt_str("Please enter your project name")
     clone_submodules()
-    squash_commits()
-    delete_prompt()
+    set_project_name(projectName)
+    #squash_commits()
+    #delete_prompt()
 
 main()
