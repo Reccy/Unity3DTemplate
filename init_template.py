@@ -150,6 +150,7 @@ def delete_file():
 
 def main():
     projectName = prompt_str("Please enter your project name")
+    repoName = None
 
     ans = prompt_list("How would you like to handle your git repo?",
     [
@@ -184,7 +185,7 @@ def main():
     commit_changes()
     squash_commits()
 
-    if repoName:
+    if repoName is not None:
         push_changes(repoName)
 
     log("Done! Good luck with " + projectName + "! :)")
